@@ -1,8 +1,20 @@
+<script setup>
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+
+const isActive = (path) => {
+  if (path === '/') {
+    return route.path === '/'
+  }
+  return route.path === path
+}
+</script>
+
 <template>
   <div class="app-shell">
     <aside class="sidebar">
       <div class="brand-wrap">
-        <div class="brand-mark">W</div>
         <div>
           <p class="brand-label">Workspace</p>
           <h1>WorkBench</h1>
@@ -10,8 +22,16 @@
       </div>
 
       <nav class="sidebar-nav" aria-label="主导航">
-        <router-link class="nav-item" to="/">概览</router-link>
-        <router-link class="nav-item" to="/tasks">待办</router-link>
+        <router-link 
+          class="nav-item" 
+          to="/"
+          :class="{ 'nav-item--active': isActive('/') }"
+        >概览</router-link>
+        <router-link 
+          class="nav-item" 
+          to="/tasks"
+          :class="{ 'nav-item--active': isActive('/tasks') }"
+        >待办</router-link>
         <router-link class="nav-item" to="#">日程</router-link>
         <router-link class="nav-item" to="#">笔记</router-link>
         <router-link class="nav-item" to="#">收藏</router-link>
@@ -71,7 +91,7 @@ input {
 }
 
 .sidebar {
-  width: 260px;
+  width: 180px;
   background: rgba(17, 24, 39, 0.96);
   color: #f9fafb;
   padding: 28px 18px;
@@ -130,9 +150,12 @@ input {
   display: block;
 }
 
-.nav-item.router-link-active,
-.nav-item.router-link-exact-active,
 .nav-item:hover {
+  background: rgba(148, 163, 184, 0.18);
+  color: #fff;
+}
+
+.nav-item--active {
   background: rgba(148, 163, 184, 0.18);
   color: #fff;
 }

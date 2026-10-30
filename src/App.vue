@@ -10,11 +10,11 @@
       </div>
 
       <nav class="sidebar-nav" aria-label="主导航">
-        <button class="nav-item active" type="button">概览</button>
-        <button class="nav-item" type="button">待办</button>
-        <button class="nav-item" type="button">日程</button>
-        <button class="nav-item" type="button">笔记</button>
-        <button class="nav-item" type="button">收藏</button>
+        <router-link class="nav-item" to="/">概览</router-link>
+        <router-link class="nav-item" to="/tasks">待办</router-link>
+        <router-link class="nav-item" to="#">日程</router-link>
+        <router-link class="nav-item" to="#">笔记</router-link>
+        <router-link class="nav-item" to="#">收藏</router-link>
       </nav>
 
       <div class="mini-card">
@@ -33,18 +33,15 @@
 
         <div class="topbar-actions">
           <button class="ghost-btn" type="button">+ 新任务</button>
-          <div class="user-profile">
-            <span class="avatar">L</span>
-            <div>
-              <strong>Liu</strong>
-              <small>Product Designer</small>
-            </div>
-          </div>
         </div>
       </header>
 
       <main class="page-content">
-        <router-view />
+        <router-view v-slot="{ Component }">
+          <keep-alive>
+            <component :is="Component" />
+          </keep-alive>
+        </router-view>
       </main>
     </div>
   </div>
@@ -129,9 +126,12 @@ input {
   background: transparent;
   cursor: pointer;
   transition: 0.2s ease;
+  text-decoration: none;
+  display: block;
 }
 
-.nav-item.active,
+.nav-item.router-link-active,
+.nav-item.router-link-exact-active,
 .nav-item:hover {
   background: rgba(148, 163, 184, 0.18);
   color: #fff;
